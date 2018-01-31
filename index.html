@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  .icon {
+    position: relative;
+    display: inline-block;
+    font-size: 4em;
+    float: left;
+    width: 100px;
+    top: 15px;
+    transition: color .5s;
+    padding-left: 3px;
+  }
+  .icon.selected {
+    color: purple;
+  }
+  #my-canvas {
+    background-color: rgba(155,155,155,0.2);
+    display: block;
+    margin: 0 auto;
+  }
+  .navbar {
+    height: 100px;
+    background-color: rgba(50, 100, 200, 0.5);
+    border-bottom: solid 6px rgba(50, 100, 200, 1);
+  }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="icon" data-shape="pen">
+      <i class="fa fa-pencil" aria-hiddden="true"></i>
+    </div>
+    <div class="icon selected" data-shape="rectangle">
+      <i class="fa fa-square" aria-hiddden="true"></i>
+    </div>
+    <div class="icon" data-shape="circle">
+      <i class="fa fa-circle" aria-hiddden="true"></i>
+    </div>
+    <div class="icon" data-shape="line">
+      <i class="fa fa-minus" aria-hiddden="true"></i>
+    </div>
+    <div class="icon" data-shape="font">
+      <i class="fa fa-font" aria-hiddden="true"></i>
+    </div>
+  </nav>
+  <div class="container">
+    <canvas id="my-canvas" width="800" height="600">
+      intall chrome!
+    </canvas>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" charset="utf-8"></script>
+  <script src="shapes.js"></script>
+  <script src="drawio.js"></script>
+</body>
+</html>
