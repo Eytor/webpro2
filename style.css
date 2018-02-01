@@ -1,0 +1,39 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.icon {
+  position: relative;
+  display: inline-block;
+  font-size: 4em;
+  float: left;
+  width: 100px;
+  top: 15px;
+  transition: color .5s;
+  padding-left: 3px;
+}
+.icon.selected {
+  color: purple;
+}
+.active{
+  display: block;
+}
+.hide {
+  display: none;
+}
+.settings {
+  position: relative;
+  display: inline-block;
+  top: 15px;
+  font-size: 1.3em;
+}
+#my-canvas {
+  background-color: rgba(155,155,155,0.2);
+  display: block;
+  margin: 0 auto;
+}
+.navbar {
+  height: 100px;
+  background-color: rgba(50, 100, 200, 0.5);
+  border-bottom: solid 6px rgba(50, 100, 200, 1);
+}
