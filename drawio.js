@@ -5,7 +5,9 @@ window.drawio = {
   ctx: document.getElementById('my-canvas').getContext('2d'),
   selectedElement: null,
   availableShapes: {
-    RECTANGLE: 'rectangle'
+    RECTANGLE: 'rectangle',
+    LINE: 'line',
+    PEN: 'pen'
   }
 }
 
@@ -30,18 +32,34 @@ $(function () {
       case drawio.availableShapes.RECTANGLE:
         drawio.selectedElement = new Rectangle({ x: mouseEvent.offsetX, y: mouseEvent.offsetY }, 0, 0);
         break;
+        case drawio.availableShapes.LINE:
+          drawio.selectedElement = new Line({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+          break;
+        case drawio.availableShapes.PEN:
+          drawio.selectedElement = new Pen({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+          break;
     }
   });
 
   $('#my-canvas').on('mousemove', function (mouseEvent) {
     if (drawio.selectedElement) {
-      drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
-      drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
-      drawCanvas();
+      if (drawio.selectedElement == 'pen') {
+        console.log('aaaa');
+        drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
+        drawio.shapes.push(drawio.selectedElement);
+        drawio.selectedElement = new Line({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+        drawCanvas();
+      }
+      else {
+        drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
+        drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
+        drawCanvas();
+      }
     };
   });
 
   $('#my-canvas').on('mouseup', function () {
+    console.log(drawio.shapes);
     drawio.shapes.push(drawio.selectedElement);
     drawio.selectedElement = null;
   });
