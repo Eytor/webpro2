@@ -7,7 +7,8 @@ window.drawio = {
   availableShapes: {
     RECTANGLE: 'rectangle',
     LINE: 'line',
-    PEN: 'pen'
+    PEN: 'pen',
+    CIRCLE: 'circle'
   }
 }
 
@@ -37,6 +38,9 @@ $(function () {
           break;
         case drawio.availableShapes.PEN:
           drawio.selectedElement = new Pen({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+          break;
+        case drawio.availableShapes.CIRCLE:
+          drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
           break;
     }
   });
