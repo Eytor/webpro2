@@ -46,6 +46,14 @@ $(function () {
       $('.icon').removeClass('selected');
       $(this).addClass('selected');
       drawio.selectedShape = $(this).data('shape');
+      if (drawio.selectedShape == "text") {
+        $('#input').removeClass('hide');
+        $('#font').removeClass('hide');
+      }
+      else {
+        $('#input').addClass('hide');
+        $('#font').addClass('hide');
+      }
     }
   });
 
