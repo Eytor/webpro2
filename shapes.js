@@ -1,5 +1,7 @@
-function Shape(position) {
+function Shape(position, size, color) {
   this.position = position;
+  this.size = parseInt(size);
+  this.color = color;
 };
 
 Shape.prototype.render = function () {
@@ -14,34 +16,35 @@ Shape.prototype.resize = function () {
 
 };
 
-function Rectangle(position, width, height) {
-  Shape.call(this, position);
+function Rectangle(position, width, height, size, color) {
+  Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
 };
 
-function Line(position, width, height) {
-  Shape.call(this, position);
+function Line(position, width, height, size, color) {
+  Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
 };
 
-function Pen(position, width, height) {
-  Shape.call(this, position);
+function Pen(position, width, height, size, color) {
+  Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
   this.pos = [];
 };
 
-function Text(position, width, height, content) {
-  Shape.call(this, position);
+function Text(position, width, height, content, font, size, color) {
+  Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
   this.content = content;
+  this.font = font;
 };
 
-function Circle(position, width, height) {
-  Shape.call(this, position);
+function Circle(position, width, height, size, color) {
+  Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
 };
@@ -60,13 +63,16 @@ Circle.prototype.constructor = Circle;
 
 Rectangle.prototype.render = function () {
   // Render a Rectangle
+
+  drawio.ctx.fillStyle = this.color;
   drawio.ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 };
 
 Line.prototype.render = function () {
   // Render a Line
   drawio.ctx.beginPath();
-  drawio.ctx.strokeStyle = "black";
+  drawio.ctx.strokeStyle = this.color;
+  drawio.ctx.lineWidth = this.size;
   drawio.ctx.moveTo(this.position.x, this.position.y);
   drawio.ctx.lineTo(this.width + this.position.x, this.height + this.position.y);
   drawio.ctx.stroke();
@@ -74,7 +80,8 @@ Line.prototype.render = function () {
 
 Pen.prototype.render = function () {
   drawio.ctx.beginPath();
-  drawio.ctx.strokeStyle = "black";
+  drawio.ctx.strokeStyle = this.color;
+  drawio.ctx.lineWidth = this.size;
   drawio.ctx.moveTo(this.position.x, this.position.y);
   for (var i = 0; i < this.pos.length; i++) {
       drawio.ctx.lineTo(this.pos[i].x, this.pos[i].y);
@@ -86,6 +93,8 @@ Circle.prototype.render = function() {
   // Render a circle
   var radius = 0;
   drawio.ctx.beginPath();
+  drawio.ctx.lineWidth = this.size;
+  drawio.ctx.strokeStyle = this.color;
   if (this.width < this.height) {
     radius = this.width / 2;
   }
@@ -100,8 +109,9 @@ Circle.prototype.render = function() {
 };
 
 Text.prototype.render = function () {
-  drawio.ctx.font="20px Georgia";
-  drawio.ctx.fillText(this.content,this.position.x,this.position.y);
+  drawio.ctx.fillStyle = this.color;
+  drawio.ctx.font = this.size + "px " + this.font;
+  drawio.ctx.fillText(this.content, this.position.x, this.position.y);
 };
 
 Rectangle.prototype.resize = function (x, y) {
@@ -120,7 +130,7 @@ Pen.prototype.resize = function (x, y) {
   this.pos.push({x: x, y: y});
 };
 
-Text.prototype.resize = function(x, y) {
+Text.prototype.resize = function (x, y) {
   this.width = x - this.position.x;
   this.height = y - this.position.y;
 };
