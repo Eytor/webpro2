@@ -1,5 +1,6 @@
 window.drawio = {
   shapes: [],
+  clipboard: [],
   selectedShape: 'pen',
   font: 'Georgia',
   size: '10px',
@@ -18,6 +19,7 @@ window.drawio = {
 
 $(function () {
   function drawCanvas() {
+    drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
     for (var i = 0; i < drawio.shapes.length; i++) {
       drawio.shapes[i].render();
     }
@@ -27,9 +29,24 @@ $(function () {
   };
 
   $('.icon').on('click', function () {
-    $('.icon').removeClass('selected');
-    $(this).addClass('selected');
-    drawio.selectedShape = $(this).data('shape');
+    if ($(this).data('shape') == 'undo' || $(this).data('shape') == 'redo') {
+      if ($(this).data('shape') == 'undo') {
+        if (drawio.shapes.length > 0) {
+          drawio.clipboard.push(drawio.shapes.pop());
+        }
+      }
+      else {
+        if (drawio.clipboard.length > 0) {
+          drawio.shapes.push(drawio.clipboard.pop());
+        }
+      }
+      drawCanvas();
+    }
+    else {
+      $('.icon').removeClass('selected');
+      $(this).addClass('selected');
+      drawio.selectedShape = $(this).data('shape');
+    }
   });
 
   $('#font').on('change', function () {
@@ -66,7 +83,6 @@ $(function () {
 
   $('#my-canvas').on('mousemove', function (mouseEvent) {
     if (drawio.selectedElement) {
-        drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
         drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
         drawCanvas();
     };

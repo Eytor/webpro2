@@ -32,25 +32,25 @@
     border-bottom: solid 6px rgba(50, 100, 200, 1);
   }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-</head>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
 
 <body>
   <nav class="navbar">
     <div class="icon selected" data-shape="pen">
-      <i class="fa fa-pencil" aria-hiddden="true"></i>
+      <i class="fas fa-edit" aria-hiddden="true"></i>
     </div>
     <div class="icon" data-shape="rectangle">
-      <i class="fa fa-square" aria-hiddden="true"></i>
+      <i class="fas fa-square" aria-hiddden="true"></i>
     </div>
     <div class="icon" data-shape="circle">
-      <i class="fa fa-circle" aria-hiddden="true"></i>
+      <i class="fas fa-circle" aria-hiddden="true"></i>
     </div>
     <div class="icon" data-shape="line">
-      <i class="fa fa-minus" aria-hiddden="true"></i>
+      <i class="fas fa-minus" aria-hiddden="true"></i>
     </div>
     <div class="icon" data-shape="text">
-      <i class="fa fa-font" aria-hiddden="true"></i>
+      <i class="fas fa-font" aria-hiddden="true"></i>
       <input type="text" id="input"><br>
       <select id="font">
         <option value="Georgia">Georgia</option>
@@ -82,6 +82,12 @@
       <option value="brown">brown</option>
       <option value="pink">pink</option>
     </select>
+    <div class="icon" data-shape="undo">
+      <i class="fas fa-undo" aria-hiddden="true"></i>
+    </div>
+    <div class="icon" data-shape="redo">
+      <i class="fas fa-redo" aria-hiddden="true"></i>
+    </div>
   </nav>
   <div class="container">
     <canvas id="my-canvas" width="800" height="600">
