@@ -38,7 +38,13 @@ function Text(position, width, height, content) {
   this.width = width;
   this.height = height;
   this.content = content;
-}
+};
+
+function Circle(position, width, height) {
+  Shape.call(this, position);
+  this.width = width;
+  this.height = height;
+};
 
 // assign the prototype
 Rectangle.prototype = Object.create(Shape.prototype);
@@ -49,6 +55,8 @@ Pen.prototype = Object.create(Shape.prototype);
 Pen.prototype.constructor = Pen;
 Text.prototype = Object.create(Shape.prototype);
 Text.prototype.constructor = Text;
+Circle.prototype = Object.create(Shape.prototype);
+Circle.prototype.constructor = Circle;
 
 Rectangle.prototype.render = function () {
   // Render a Rectangle
@@ -74,6 +82,23 @@ Pen.prototype.render = function () {
   drawio.ctx.stroke();
 };
 
+Circle.prototype.render = function() {
+  // Render a circle
+  var radius = 0;
+  drawio.ctx.beginPath();
+  if (this.width < this.height) {
+    radius = this.width / 2;
+  }
+  else {
+    radius = this.height / 2;
+  }
+  if (radius < 0) {
+    radius = -radius;
+  }
+  drawio.ctx.arc(this.position.x, this.position.y, radius, 0, 2 * Math.PI);
+  drawio.ctx.stroke();
+};
+
 Text.prototype.render = function () {
   drawio.ctx.font="20px Georgia";
   drawio.ctx.fillText(this.content,this.position.x,this.position.y);
@@ -94,7 +119,13 @@ Pen.prototype.resize = function (x, y) {
   this.height = y - this.position.y;
   this.pos.push({x: x, y: y});
 };
+
 Text.prototype.resize = function(x, y) {
   this.width = x - this.position.x;
   this.height = y - this.position.y;
-}
+};
+
+Circle.prototype.resize = function (x,y) {
+  this.width = x - this.position.x;
+  this.height = y - this.position.y;
+};

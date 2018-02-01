@@ -8,7 +8,10 @@ window.drawio = {
     RECTANGLE: 'rectangle',
     LINE: 'line',
     PEN: 'pen',
-    TEXT: 'text'
+
+    TEXT: 'text',
+
+    CIRCLE: 'circle'
   }
 }
 
@@ -39,8 +42,13 @@ $(function () {
         case drawio.availableShapes.PEN:
           drawio.selectedElement = new Pen({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
           break;
+
         case drawio.availableShapes.TEXT:
           drawio.selectedElement = new Text({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0, $('#input').val());
+          break;
+        case drawio.availableShapes.CIRCLE:
+          drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+
           break;
     }
   });
