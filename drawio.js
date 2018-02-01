@@ -7,7 +7,8 @@ window.drawio = {
   availableShapes: {
     RECTANGLE: 'rectangle',
     LINE: 'line',
-    PEN: 'pen'
+    PEN: 'pen',
+    TEXT: 'text'
   }
 }
 
@@ -38,23 +39,17 @@ $(function () {
         case drawio.availableShapes.PEN:
           drawio.selectedElement = new Pen({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
           break;
+        case drawio.availableShapes.TEXT:
+          drawio.selectedElement = new Text({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0, $('#input').val());
+          break;
     }
   });
 
   $('#my-canvas').on('mousemove', function (mouseEvent) {
     if (drawio.selectedElement) {
-      if (drawio.selectedElement == 'pen') {
-        console.log('aaaa');
-        drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
-        drawio.shapes.push(drawio.selectedElement);
-        drawio.selectedElement = new Line({ x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
-        drawCanvas();
-      }
-      else {
         drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
         drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
         drawCanvas();
-      }
     };
   });
 
