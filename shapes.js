@@ -16,6 +16,15 @@ Shape.prototype.resize = function () {
 
 };
 
+Shape.prototype.contains = function (x, y) {
+  if(this.position.x < x && this.position.y < y) {
+    if ((this.position.x + this.width) > x && (this.position.y + this.height) > y ) {
+      return true;
+    }
+  }
+  return false;
+};
+
 function Rectangle(position, width, height, size, color) {
   Shape.call(this, position, size, color);
   this.width = width;
@@ -37,8 +46,8 @@ function Pen(position, width, height, size, color) {
 
 function Text(position, width, height, content, font, size, color) {
   Shape.call(this, position, size, color);
-  this.width = width;
-  this.height = height;
+  this.width = width.width;
+  this.height = parseInt(height);
   this.content = content;
   this.font = font;
 };
@@ -89,6 +98,16 @@ Pen.prototype.render = function () {
   drawio.ctx.stroke();
 };
 
+Pen.prototype.move = function (position) {
+  var original = this.position;
+  this.position = position;
+  for (var i = 0; i < this.pos.length; i++) {
+    var x = this.pos[i].x - original.x;
+    var y = this.pos[i].y - original.y;
+    this.pos[i].x = x+position.x;
+    this.pos[i].y = y+position.y;
+  }
+};
 Circle.prototype.render = function() {
   // Render a circle
   var radius = 0;
@@ -131,8 +150,6 @@ Pen.prototype.resize = function (x, y) {
 };
 
 Text.prototype.resize = function (x, y) {
-  this.width = x - this.position.x;
-  this.height = y - this.position.y;
 };
 
 Circle.prototype.resize = function (x,y) {
