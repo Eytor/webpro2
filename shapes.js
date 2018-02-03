@@ -96,15 +96,15 @@ Circle.prototype.render = function() {
   drawio.ctx.lineWidth = this.size;
   drawio.ctx.strokeStyle = this.color;
   if (this.width < this.height) {
-    radius = this.width / 2;
+    radius = this.width;
   }
   else {
-    radius = this.height / 2;
+    radius = this.height;
   }
   if (radius < 0) {
     radius = -radius;
   }
-  drawio.ctx.arc(this.position.x, this.position.y, radius, 0, 2 * Math.PI);
+  drawio.ctx.arc(this.position.x+this.width/2, this.position.y+this.height/2, radius, 0, 2 * Math.PI);
   drawio.ctx.stroke();
 };
 

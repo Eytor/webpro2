@@ -8,6 +8,7 @@ window.drawio = {
   canvas: document.getElementById('my-canvas'),
   ctx: document.getElementById('my-canvas').getContext('2d'),
   selectedElement: null,
+  img: new Image,
   availableShapes: {
     RECTANGLE: 'rectangle',
     LINE: 'line',
@@ -16,16 +17,22 @@ window.drawio = {
     CIRCLE: 'circle'
   }
 }
+myStorage = window.localStorage;
 
 $(function () {
   function drawCanvas() {
-    drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
+    clearCanvas();
+    drawio.ctx.drawImage(drawio.img, 0, 0);
     for (var i = 0; i < drawio.shapes.length; i++) {
       drawio.shapes[i].render();
     }
     if (drawio.selectedElement) {
       drawio.selectedElement.render();
     }
+  };
+
+  function clearCanvas() {
+    drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
   };
 
   $('.icon').on('click', function () {
@@ -41,6 +48,23 @@ $(function () {
         }
       }
       drawCanvas();
+    }
+    else if ($(this).data('shape') == 'download') {
+      myStorage.setItem('canvas', drawio.canvas.toDataURL());
+      drawio.shapes = [];
+      drawio.clipboard = [];
+      clearCanvas();
+      drawio.img.src = drawio.canvas.toDataURL();
+    }
+    else if ($(this).data('shape') == 'upload') {
+      drawio.shapes = [];
+      drawio.clipboard = [];
+      var dataURL = myStorage.getItem('canvas');
+      drawio.img = new Image;
+      drawio.img.src = dataURL;
+      drawio.img.onload = function () {
+        drawio.ctx.drawImage(drawio.img, 0, 0);
+      };
     }
     else {
       $('.icon').removeClass('selected');
@@ -97,7 +121,6 @@ $(function () {
   });
 
   $('#my-canvas').on('mouseup', function () {
-    console.log(drawio.shapes);
     drawio.shapes.push(drawio.selectedElement);
     drawio.selectedElement = null;
   });
