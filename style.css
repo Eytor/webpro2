@@ -7,13 +7,16 @@ body {
   display: inline-block;
   font-size: 4em;
   float: left;
-  width: 100px;
+  width: 75px;
   top: 15px;
   transition: color .5s;
   padding-left: 3px;
 }
 .icon.selected {
   color: purple;
+}
+.icon:hover {
+  color: orange;
 }
 .active{
   display: block;
@@ -31,6 +34,7 @@ body {
   background-color: rgba(155,155,155,0.2);
   display: block;
   margin: 0 auto;
+  border-style: solid;
 }
 .navbar {
   height: 100px;

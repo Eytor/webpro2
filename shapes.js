@@ -4,16 +4,13 @@ function Shape(position, size, color) {
   this.color = color;
 };
 
-Shape.prototype.render = function () {
-
-};
-
 Shape.prototype.move = function (position) {
   this.position = position;
 };
 
-Shape.prototype.resize = function () {
-
+Shape.prototype.resize = function (x, y) {
+  this.width = x - this.position.x;
+  this.height = y - this.position.y;
 };
 
 // this is for when moving to find if the mouse is located in a shape
@@ -138,16 +135,6 @@ Text.prototype.render = function () {
   drawio.ctx.fillText(this.content, this.position.x, this.position.y);
 };
 
-Rectangle.prototype.resize = function (x, y) {
-  this.width = x - this.position.x;
-  this.height = y - this.position.y;
-};
-
-Line.prototype.resize = function (x, y) {
-  this.width = x - this.position.x;
-  this.height = y - this.position.y;
-};
-
 Pen.prototype.resize = function (x, y) {
   this.width = x - this.position.x;
   this.height = y - this.position.y;
@@ -155,9 +142,4 @@ Pen.prototype.resize = function (x, y) {
 };
 
 Text.prototype.resize = function (x, y) {
-};
-
-Circle.prototype.resize = function (x,y) {
-  this.width = x - this.position.x;
-  this.height = y - this.position.y;
 };
