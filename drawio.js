@@ -20,7 +20,7 @@ window.drawio = {
   }
 }
 myStorage = window.localStorage;
-
+//  this function is for drawing on the canvas
 $(function () {
   function drawCanvas() {
     clearCanvas();
@@ -37,6 +37,7 @@ $(function () {
     drawio.ctx.clearRect(0, 0, drawio.canvas.width, drawio.canvas.height);
   };
 
+  //this function handles the undo/redo also the download/upload for the canvas
   $('.icon').on('click', function () {
     if ($(this).data('shape') == 'undo' || $(this).data('shape') == 'redo') {
       if ($(this).data('shape') == 'undo') {
@@ -83,18 +84,21 @@ $(function () {
     }
   });
 
+  // this is for the fonts in canvas
   $('#font').on('change', function () {
     drawio.font = $(this).val();
   });
-
+  //this is for size of shape or letters on the canvas
   $('#size').on('change', function () {
     drawio.size = $(this).val();
   });
-
+  // this is for the color scheme on the canvas
   $('#color').on('change', function () {
     drawio.color = $(this).val();
   });
 
+  // this is the function when the user draws on the canvas each case is for what the user has chosen to insert
+  // onto the canvas
   $('#my-canvas').on('mousedown', function (mouseEvent) {
     switch (drawio.selectedShape) {
       case drawio.availableShapes.RECTANGLE:

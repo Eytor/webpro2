@@ -16,6 +16,7 @@ Shape.prototype.resize = function () {
 
 };
 
+// this is for when moving to find if the mouse is located in a shape
 Shape.prototype.contains = function (x, y) {
   if(this.position.x < x && this.position.y < y) {
     if ((this.position.x + this.width) > x && (this.position.y + this.height) > y ) {
@@ -25,25 +26,26 @@ Shape.prototype.contains = function (x, y) {
   return false;
 };
 
+// this function is the property of the rectangle in the canvas
 function Rectangle(position, width, height, size, color) {
   Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
 };
-
+// this function is the property og the straight line in the canvas
 function Line(position, width, height, size, color) {
   Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
 };
-
+// this function is the property of the Pen in the canvas
 function Pen(position, width, height, size, color) {
   Shape.call(this, position, size, color);
   this.width = width;
   this.height = height;
   this.pos = [];
 };
-
+// this function is the propertyof the Text in the canvas
 function Text(position, width, height, content, font, size, color) {
   Shape.call(this, position, size, color);
   this.width = width.width;
@@ -51,7 +53,7 @@ function Text(position, width, height, content, font, size, color) {
   this.content = content;
   this.font = font;
 };
-
+// this function is the property of the circle in the canvas
 function Circle(position, width, height, size, color) {
   Shape.call(this, position, size, color);
   this.width = width;
@@ -88,6 +90,7 @@ Line.prototype.render = function () {
 };
 
 Pen.prototype.render = function () {
+  // Render the Pen
   drawio.ctx.beginPath();
   drawio.ctx.strokeStyle = this.color;
   drawio.ctx.lineWidth = this.size;
@@ -98,6 +101,7 @@ Pen.prototype.render = function () {
   drawio.ctx.stroke();
 };
 
+// this function is for moving the Pen
 Pen.prototype.move = function (position) {
   var original = this.position;
   this.position = position;
@@ -127,6 +131,7 @@ Circle.prototype.render = function() {
   drawio.ctx.stroke();
 };
 
+// Render the Text
 Text.prototype.render = function () {
   drawio.ctx.fillStyle = this.color;
   drawio.ctx.font = this.size + "px " + this.font;
